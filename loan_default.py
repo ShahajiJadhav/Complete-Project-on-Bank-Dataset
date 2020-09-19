@@ -17,11 +17,8 @@ bank=bank.reset_index(drop=True)
 
 #Removing $ symbol
 dollar_var=['DisbursementGross','BalanceGross','ChgOffPrinGr','GrAppv','SBA_Appv']
-for i in dollar_var:
-    for j in range(len(bank)):
-        bank[i][j]=float(bank[i][j].replace("$","").replace(",",""))
-        if j%5000==0:
-            print(j)
+for i in df.loc[:, ['GrAppv', 'SBA_Appv', 'ChgOffPrinGr','BalanceGross', 'DisbursementGross']]:
+    df[i]=df[i].apply(lambda x: x.replace(',',"").replace('$',"")).astype(float).astype(int)
 
 
 #OUTPUT VARIABLE ---> MIS_STATUS
